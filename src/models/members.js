@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const usersSchema = new mongoose.Schema({
+const membersSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -10,19 +10,15 @@ const usersSchema = new mongoose.Schema({
         type:String,
         required:true,
         trim:true,
+        unique:true,
     },
-    city:{
-        type:String,
-        required:true,
-        trim:true
-    },
-    field:{
+    password:{
         type:String,    
         required:true,
         trim:true
     },
 })
 //we are creating anew collection
-const users = new mongoose.model('user',usersSchema)
+const members = new mongoose.model('members',membersSchema)
 
-module.exports = users;
+module.exports = members;
