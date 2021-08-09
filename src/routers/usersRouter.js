@@ -43,7 +43,7 @@ router.post("/login",async (req, res)=>{
   res.status(200).json({
     token: token,
     expiresIn: 3600,
-    userId: fetchUser._id,
+    _id: fetchUser._id,
     email:fetchUser.email,
     name:fetchUser.name,
     message: "Login Successfully",
@@ -69,6 +69,29 @@ router.delete("/members/:id", async (req, res) => {
   }
 });
 
+router.put("/members/:id", async (req, res) => {
+  try {
+    let selectedMemberData
+
+    const _id = req.params.id;
+    const fetchMember = await members.findById(_id)
+    const checkPassword = await bcrypt.compare(req.body.password, fetchMember.password);
+    if (checkPassword || req.body.password=="") {
+    selectedMemberData = await members.findByIdAndUpdate(_id,{name:req.body.name,email:req.body.email}, {
+      new: true,
+    });
+  }
+  else{
+    const hash = await bcrypt.hash(req.body.password, 10);
+    selectedMemberData = await members.findByIdAndUpdate(_id,{name:req.body.name,email:req.body.email,password:hash}, {
+      new: true,
+    });
+  }
+    res.send(selectedMemberData);
+  } catch (e) {
+    res.status(404).send(e);
+  }
+});
 
 router.post("/users", async (req, res) => {
   try {
