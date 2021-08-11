@@ -18,7 +18,7 @@ const membersSchema = new mongoose.Schema({
         trim:true
     },
 })
-//we are creating anew collection
+//we are creating a new collection
 const members = new mongoose.model('members',membersSchema)
 
 module.exports = members;

@@ -1,16 +1,16 @@
-const express = require('express');
-require('../src/db/conn');
-const users = require('../src/models/users');
+const express = require("express");
+require("../src/db/conn");
 const app = express();
 const port = process.env.PORT || 7000;
-const router = require('./routers/usersRouter')
-var cors = require('cors');
-const members = require('./models/members');
+const routerUsers = require("./routers/usersRouter");
+var cors = require("cors");
+const routerMembers = require("./routers/membersRouter");
 
 app.use(cors());
-app.use(express.json())
-app.use(router)
+app.use(express.json());
+app.use(routerUsers);
+app.use(routerMembers);
 
-app.listen(port,()=>{
-    console.log(`connection is live at port ${port}`)
-})
+app.listen(port, () => {
+  console.log(`connection is live at port ${port}`);
+});

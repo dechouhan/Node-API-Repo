@@ -22,7 +22,7 @@ const usersSchema = new mongoose.Schema({
         trim:true
     },
 })
-//we are creating anew collection
+//we are creating a new collection
 const users = new mongoose.model('user',usersSchema)
 
 module.exports = users;
