@@ -60,6 +60,16 @@ routerMembers.get("/members", async (req, res) => {
   }
 });
 
+routerMembers.get("/members/:name", async (req, res) => {
+  try {
+    var regex =await new RegExp(req.params.name,'i');
+    const allMembersData = await Members.find({name:regex});
+    res.send(allMembersData);
+  } catch (e) {
+    res.status(404).send(e);
+  }
+});
+
 routerMembers.delete("/members/:id", async (req, res) => {
   try {
     const _id = req.params.id;
